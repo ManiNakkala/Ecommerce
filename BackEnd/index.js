@@ -9,9 +9,13 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(cors({
-  origin: "*", // later replace with frontend URL
+  origin: [
+    "http://localhost:3000",
+    "https://ecommerce-frontend.onrender.com"
+  ],
   credentials: true
 }));
+
 
 app.use(express.json());
 
