@@ -5,19 +5,23 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const app = express();
-const PORT = 5000;
-const JWT_SECRET = "secretkey";
+const PORT = process.env.PORT || 5000;
+const JWT_SECRET = process.env.JWT_SECRET;
 
-app.use(cors());
+app.use(cors({
+  origin: "*", // later replace with frontend URL
+  credentials: true
+}));
+
 app.use(express.json());
 
 /* ------------------ MYSQL POOL ------------------ */
 const pool = mysql.createPool({
-  host: "3.110.238.118",
-  user: "zenkara",              // ✅ your MySQL username
-  password: "Zenkara@123", // your MySQL password
-  database: "SampleProject",
-  port: 3306,                // ✅ this is the port
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
